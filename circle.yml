@@ -1,0 +1,8 @@
+deployment:
+  prod:
+    branch: heroku
+    heroku:
+      appname: gbk-mongoose-blog-api
+machine:
+  node:
+    version: 8.1.4
