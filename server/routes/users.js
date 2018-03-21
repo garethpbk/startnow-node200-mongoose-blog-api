@@ -11,24 +11,22 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   let id = req.params.id;
   User.findById(id).then(user => {
-    res.status(200).json(user);
+    user ? res.status(200).json(user) : res.status(404).send("404 user not found");
   });
 });
 
 router.post("/", (req, res) => {
   let newUser = new User(req.body);
-  console.log(newUser);
   newUser.save((err, user) => {
-    err ? console.log(err) : res.status(200).json(user);
+    err ? res.status(404).send(err) : res.status(201).json(user);
   });
 });
 
 router.put("/:id", (req, res) => {
   let id = req.params.id;
   let update = req.body;
-  console.log(id, update);
   User.findByIdAndUpdate(id, { $set: update }, (err, user) => {
-    err ? console.log(err) : res.status(200).json(user);
+    err ? console.log(err) : res.status(204).json(user);
   });
 });
 
